@@ -7,6 +7,8 @@ import ScheduleRelease from './pages/purchasing/ScheduleRelease.jsx'
 import PurchaseOrder from './pages/purchasing/PurchaseOrder.jsx'
 // import VendorStock from './pages/purchasing/VendorStock.jsx'
 import OpenPOReport from './pages/purchasing/OpenPOReport.jsx'
+import Advanceshipment from './pages/shipment/Advanceshipment.jsx'
+import GoodsMovement from './pages/shipment/GoodsMovement.jsx'
 
 // Quality
 // import { QC4M, QC1, QC3, ProcessAudit, VendorMaster, PDIRCreation } from './pages/quality/index.jsx'
@@ -34,6 +36,9 @@ export default function App() {
       <Route path="/quality/process-audit" element={<ProcessAudit />} />
       <Route path="/quality/vendor-master" element={<VendorMaster />} />
       <Route path="/quality/pdir" element={<PDIRCreation />} /> */}
+      {/*shipment*/}
+      <Route path="/shipment/Advanceshipment" element={<Advanceshipment />} />
+      <Route path="/shipment/GoodsMovement" element={<GoodsMovement />} />
 
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />

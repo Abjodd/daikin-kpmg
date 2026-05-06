@@ -397,7 +397,30 @@ export const NAV_MODULES = [
       },
     ],
   },
+
+  {
+  id: 'shipment',
+  label: 'Shipment',
+  tiles: [
+    {
+      id: 'Advanceshipment',
+      label: 'Advance Shipping Note',
+      sub: 'ASN',
+      path: '/shipment/Advanceshipment',
+      icon: 'shipment',
+    },
+
+    {
+      id: 'Goodsmanagement',
+      label: 'Goods Movement',
+      sub: 'Track Shipments',
+      path: '/shipment/GoodsMovement',
+      icon: 'tracking',
+    },
+  ],
+},
 ]
+
 
 export const findModuleByTilePath = (path) => {
   for (const mod of NAV_MODULES) {
