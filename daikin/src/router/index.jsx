@@ -278,7 +278,7 @@ export const NAV_MODULES = [
       {
         id: 'advance-shipping-note',
         label: 'Advance Shipping Note',
-        path: '',
+        path: '/shipment/advance-shipping-note',
         icon: 'shipment',
       },
 
@@ -286,16 +286,9 @@ export const NAV_MODULES = [
         id: 'goods-movement',
         label: 'Goods Movement',
         sub: 'Track Shipments',
-        path: '',
+        path: '/shipment/goods-movement',
         icon: 'tracking',
-      },
-
-      {
-        id: 'gate-in-out',
-        label: 'Gate-In / Gate-Out',
-        path: '',
-        icon: 'gate',
-      },
+      }
     ],
   },
 
@@ -397,28 +390,6 @@ export const NAV_MODULES = [
       },
     ],
   },
-
-  {
-  id: 'shipment',
-  label: 'Shipment',
-  tiles: [
-    {
-      id: 'Advanceshipment',
-      label: 'Advance Shipping Note',
-      sub: 'ASN',
-      path: '/shipment/Advanceshipment',
-      icon: 'shipment',
-    },
-
-    {
-      id: 'Goodsmanagement',
-      label: 'Goods Movement',
-      sub: 'Track Shipments',
-      path: '/shipment/GoodsMovement',
-      icon: 'tracking',
-    },
-  ],
-},
 ]
 
 

@@ -37,8 +37,9 @@ export default function App() {
       <Route path="/quality/vendor-master" element={<VendorMaster />} />
       <Route path="/quality/pdir" element={<PDIRCreation />} /> */}
       {/*shipment*/}
-      <Route path="/shipment/Advanceshipment" element={<Advanceshipment />} />
-      <Route path="/shipment/GoodsMovement" element={<GoodsMovement />} />
+      <Route path="/shipment/advance-shipping-note" element={<Advanceshipment />} />
+      <Route path="/shipment/goods-movement" element={<GoodsMovement />} />
+      
 
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
