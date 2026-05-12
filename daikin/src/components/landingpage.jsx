@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { NAV_MODULES } from '../router/index'; // adjust path
 import { ArrowRight, Boxes, Shield, Zap, BarChart3, Users, Cog, ChevronRight, Bell, Search, Menu } from 'lucide-react';
 
 export default function DaikinPortal() {
@@ -38,15 +39,7 @@ export default function DaikinPortal() {
         });
     };
 
-    const modules = [
-        { icon: Boxes, name: "Materials Management", code: "MM", desc: "Procurement, inventory & supplier ops" },
-        { icon: BarChart3, name: "Financial Accounting", code: "FI", desc: "GL, AR, AP & financial reporting" },
-        { icon: Cog, name: "Production Planning", code: "PP", desc: "Manufacturing & shop floor control" },
-        { icon: Users, name: "Human Capital", code: "HR", desc: "Workforce, payroll & talent" },
-        { icon: Shield, name: "Quality Management", code: "QM", desc: "Inspection & quality assurance" },
-        { icon: Zap, name: "Plant Maintenance", code: "PM", desc: "Asset reliability & service ops" },
-        { icon: ArrowRight, name: "Sales & Distribution", code: "SD", desc: "Order management & customer ops" },
-    ];
+    const modules = NAV_MODULES;
 
 
 
@@ -186,19 +179,19 @@ export default function DaikinPortal() {
             <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-[#05080d]/85 backdrop-blur-xl border-b border-white/5' : 'bg-transparent'}`}>
                 <div className="max-w-[1480px] mx-auto px-8 py-5 flex items-center justify-between">
                     {/* Logo */}
-                   <div className="flex items-center gap-3">
-    
-    <img
-        src="/daikin.png"
-        alt="Daikin Logo"
-        className="w-24 md:w-28 object-contain"
-    />
+                    <div className="flex items-center gap-3">
 
-    <span className="hidden md:inline text-white/30 text-sm font-mono ml-2 pl-3 border-l border-white/10">
-        SAP PORTAL
-    </span>
+                        <img
+                            src="/daikin.png"
+                            alt="Daikin Logo"
+                            className="w-24 md:w-28 object-contain"
+                        />
 
-</div>
+                        <span className="hidden md:inline text-white/30 text-sm font-mono ml-2 pl-3 border-l border-white/10">
+                            SAP PORTAL
+                        </span>
+
+                    </div>
 
                     {/* Nav links */}
                     <ul className="hidden lg:flex items-center gap-9 text-[14px]">
@@ -398,37 +391,64 @@ export default function DaikinPortal() {
                     </div>
 
                     {/* Modules grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-3xl overflow-hidden">
-                        {modules.map((m, i) => {
-                            const Icon = m.icon;
-                            return (
-                                <div
-                                    key={i}
-                                    onClick={() => navigate('/dashboard')}
-                                    className="module-card group relative bg-[#05080d] p-8 cursor-pointer"
-                                >
-                                    <div className="flex items-start justify-between mb-12">
-                                        <div className="module-icon w-14 h-14 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center transition-all duration-500">
-                                            <Icon size={22} strokeWidth={1.5} className="text-[#00A2E8]" />
-                                        </div>
-                                        <span className="font-mono text-xs text-white/30 tracking-wider">/ {String(i + 1).padStart(2, '0')}</span>
-                                    </div>
+<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-3xl overflow-hidden">
 
-                                    <div className="font-mono text-[10px] text-[#00A2E8] tracking-[0.2em] mb-2">{m.code}</div>
-                                    <h3 className="text-2xl font-medium tracking-tight mb-3">{m.name}</h3>
-                                    <p className="text-white/50 text-sm leading-relaxed mb-8">{m.desc}</p>
+    {modules.map((m, i) => (
 
-                                    <div className="flex items-center gap-2 text-sm text-white/70">
-                                        <span>Open module</span>
-                                        <ArrowRight size={14} className="module-arrow transition-all duration-300" />
-                                    </div>
+        <div
+            key={m.id}
+            onClick={() => navigate('/dashboard')}
+            className="module-card group relative bg-[#05080d] p-8 cursor-pointer"
+        >
 
-                                    {/* hover gradient corner */}
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#00A2E8]/0 to-transparent group-hover:from-[#00A2E8]/20 transition-all duration-700 pointer-events-none rounded-tr-3xl" />
-                                </div>
-                            );
-                        })}
-                    </div>
+            <div className="flex items-start justify-between mb-12">
+
+                {/* Icon */}
+                <div className="module-icon w-14 h-14 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center transition-all duration-500">
+
+                    <div className="w-3 h-3 rounded-full bg-[#00A2E8] shadow-[0_0_15px_rgba(0,162,232,0.8)]" />
+
+                </div>
+
+                <span className="font-mono text-xs text-white/30 tracking-wider">
+                    / {String(i + 1).padStart(2, '0')}
+                </span>
+
+            </div>
+
+            {/* Module Code */}
+            <div className="font-mono text-[10px] text-[#00A2E8] tracking-[0.2em] mb-2">
+                {m.id.toUpperCase()}
+            </div>
+
+            {/* Module Name */}
+            <h3 className="text-2xl font-medium tracking-tight mb-3">
+                {m.label}
+            </h3>
+
+            {/* Description */}
+            <p className="text-white/50 text-sm leading-relaxed mb-8">
+                {m.tiles.length} integrated tools available
+            </p>
+
+            {/* Footer */}
+            <div className="flex items-center gap-2 text-sm text-white/70">
+                <span>Open module</span>
+
+                <ArrowRight
+                    size={14}
+                    className="module-arrow transition-all duration-300"
+                />
+            </div>
+
+            {/* Hover Effect */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#00A2E8]/0 to-transparent group-hover:from-[#00A2E8]/20 transition-all duration-700 pointer-events-none rounded-tr-3xl" />
+
+        </div>
+
+    ))}
+
+</div>
 
                     {/* CTA below grid */}
 
