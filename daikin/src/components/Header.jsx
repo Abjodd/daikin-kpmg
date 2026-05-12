@@ -8,18 +8,24 @@ const SUPPLIER = 'Kunstocom (India) Ltd'
 const LOCATION = 'Neemrana, Alwar'
 
 const CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
 
   .hdr-root {
-    --ink: #edeae3;
-    --ink2: #9096a8;
-    --muted: #4a5060;
-    --accent: #c8ff00;
-    --border: rgba(255,255,255,0.07);
-    --bg: #0d0f1a;
-    --surface: #161a26;
-    --font-display: 'Syne', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
+    --accent:       #3b2fc9;
+    --accent-2:     #5b4be8;
+    --accent-soft:  rgba(59,47,201,0.08);
+    --accent-mid:   rgba(59,47,201,0.18);
+    --accent-brd:   rgba(59,47,201,0.22);
+    --bg:           #ffffff;
+    --surface:      #f4f5fb;
+    --surface-2:    #edeef8;
+    --border:       rgba(59,47,201,0.10);
+    --border-hard:  rgba(59,47,201,0.18);
+    --ink:          #1a1740;
+    --ink-2:        #4a4870;
+    --muted:        #9896b8;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
 
     position: sticky;
     top: 0;
@@ -27,14 +33,15 @@ const CSS = `
     height: 56px;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 0 var(--border), 0 4px 16px rgba(59,47,201,0.06);
     display: flex;
     align-items: center;
     padding: 0 20px;
     gap: 0;
-    font-family: var(--font-body);
+    font-family: var(--sans);
   }
 
-  /* LOGO */
+  /* ── LOGO ── */
   .hdr-logo {
     display: flex;
     align-items: center;
@@ -48,13 +55,18 @@ const CSS = `
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    background: rgba(200,255,0,0.1);
-    border: 1px solid rgba(200,255,0,0.2);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-brd);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     overflow: hidden;
+    transition: background 0.15s;
+  }
+
+  .hdr-logo:hover .hdr-logo-mark {
+    background: var(--accent-mid);
   }
 
   .hdr-logo-img {
@@ -62,13 +74,13 @@ const CSS = `
     height: 22px;
     object-fit: contain;
     display: block;
-    filter: drop-shadow(0 0 1px rgba(200,255,0,0.8));
+    filter: drop-shadow(0 0 1px rgba(59,47,201,0.5));
   }
 
   .hdr-logo-fallback {
-    font-family: var(--font-display);
+    font-family: var(--sans);
     font-size: 11px;
-    font-weight: 800;
+    font-weight: 600;
     color: var(--accent);
     letter-spacing: 0.06em;
   }
@@ -81,30 +93,31 @@ const CSS = `
   }
 
   .hdr-logo-name {
-    font-family: var(--font-display);
-    font-size: 13px;
-    font-weight: 800;
-    color: #c8ff00;
-    letter-spacing: 0.04em;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.08em;
   }
 
   .hdr-logo-sub {
     font-size: 9.5px;
     font-weight: 400;
-    color: var(--ink2);
+    color: var(--muted);
     letter-spacing: 0.04em;
+    font-family: var(--sans);
   }
 
-  /* DIVIDER */
+  /* ── DIVIDER ── */
   .hdr-div {
     width: 1px;
     height: 20px;
-    background: var(--border);
+    background: var(--border-hard);
     margin: 0 16px;
     flex-shrink: 0;
   }
 
-  /* BREADCRUMB */
+  /* ── BREADCRUMB ── */
   .hdr-nav {
     display: flex;
     align-items: center;
@@ -113,17 +126,18 @@ const CSS = `
     font-size: 12px;
     color: var(--muted);
     flex-shrink: 0;
+    font-family: var(--sans);
   }
 
   .hdr-crumb-home {
     font-weight: 500;
-    color: var(--ink2);
+    color: var(--ink-2);
     text-decoration: none;
     flex-shrink: 0;
     transition: color 0.15s;
   }
 
-  .hdr-crumb-home:hover { color: #fff; }
+  .hdr-crumb-home:hover { color: var(--accent); }
 
   .hdr-crumb-sep {
     color: var(--muted);
@@ -132,7 +146,7 @@ const CSS = `
   }
 
   .hdr-crumb-module {
-    color: var(--ink2);
+    color: var(--ink-2);
     flex-shrink: 0;
     font-weight: 400;
   }
@@ -140,17 +154,19 @@ const CSS = `
   .hdr-crumb-tile {
     font-weight: 600;
     color: var(--accent);
-    background: rgba(200,255,0,0.08);
-    border: 1px solid rgba(200,255,0,0.15);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-brd);
     padding: 2px 8px;
     border-radius: 4px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     letter-spacing: 0.01em;
+    font-family: var(--mono);
+    font-size: 11px;
   }
 
-  /* ════════ SEARCH ════════ */
+  /* ── SEARCH ── */
   .hdr-search-wrap {
     flex: 1;
     display: flex;
@@ -181,23 +197,25 @@ const CSS = `
   .hdr-search-input {
     width: 100%;
     height: 32px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.09);
-    border-radius: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border-hard);
+    border-radius: 6px;
     padding: 0 32px 0 32px;
-    font-family: var(--font-body);
+    font-family: var(--sans);
     font-size: 12px;
-    color: #fff;
+    color: var(--ink);
     outline: none;
-    transition: border-color 0.15s, background 0.15s;
+    transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
     letter-spacing: 0.01em;
+    box-sizing: border-box;
   }
 
   .hdr-search-input::placeholder { color: var(--muted); }
 
   .hdr-search-input:focus {
-    border-color: rgba(200,255,0,0.35);
-    background: rgba(200,255,0,0.04);
+    border-color: var(--accent-2);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(59,47,201,0.10);
   }
 
   .hdr-search-kbd {
@@ -205,14 +223,14 @@ const CSS = `
     right: 8px;
     top: 50%;
     transform: translateY(-50%);
-    font-family: var(--font-display);
+    font-family: var(--mono);
     font-size: 8px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--muted);
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--surface-2);
+    border: 1px solid var(--border-hard);
     border-radius: 3px;
-    padding: 1px 4px;
+    padding: 1px 5px;
     letter-spacing: 0.04em;
     pointer-events: none;
   }
@@ -225,11 +243,11 @@ const CSS = `
     transform: translateX(-50%);
     width: 100%;
     max-width: 360px;
-    background: #13162a;
-    border: 1px solid rgba(255,255,255,0.09);
-    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid var(--border-hard);
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 12px 36px rgba(59,47,201,0.14), 0 2px 8px rgba(59,47,201,0.08);
     z-index: 999;
     max-height: 340px;
     overflow-y: auto;
@@ -239,13 +257,15 @@ const CSS = `
   .hdr-search-drop::-webkit-scrollbar { display: none; }
 
   .hdr-search-group-label {
-    font-family: var(--font-display);
+    font-family: var(--mono);
     font-size: 7.5px;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.2);
+    color: var(--muted);
     padding: 10px 14px 5px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
   }
 
   .hdr-search-item {
@@ -260,20 +280,20 @@ const CSS = `
 
   .hdr-search-item:hover,
   .hdr-search-item.focused {
-    background: rgba(200,255,0,0.07);
+    background: var(--accent-soft);
   }
 
   .hdr-search-item-icon {
     width: 28px;
     height: 28px;
-    border-radius: 7px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border-hard);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: rgba(255,255,255,0.35);
+    color: var(--accent-2);
   }
 
   .hdr-search-item-text { flex: 1; min-width: 0; }
@@ -281,10 +301,11 @@ const CSS = `
   .hdr-search-item-label {
     font-size: 12px;
     font-weight: 500;
-    color: rgba(255,255,255,0.85);
+    color: var(--ink);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-family: var(--sans);
   }
 
   .hdr-search-item-label mark {
@@ -297,6 +318,7 @@ const CSS = `
     font-size: 10px;
     color: var(--muted);
     margin-top: 1px;
+    font-family: var(--mono);
   }
 
   .hdr-search-arrow {
@@ -309,9 +331,10 @@ const CSS = `
     text-align: center;
     font-size: 12px;
     color: var(--muted);
+    font-family: var(--sans);
   }
 
-  /* COMPANY BLOCK */
+  /* ── COMPANY BLOCK ── */
   .hdr-company {
     display: none;
     flex-direction: column;
@@ -329,20 +352,21 @@ const CSS = `
   }
 
   .hdr-badge {
-    font-family: var(--font-display);
+    font-family: var(--mono);
     font-size: 9px;
-    font-weight: 800;
+    font-weight: 600;
     letter-spacing: 0.1em;
-    padding: 2px 6px;
+    padding: 2px 7px;
     border-radius: 4px;
     background: var(--accent);
-    color: #09100a;
+    color: #ffffff;
   }
 
   .hdr-company-name {
+    font-family: var(--sans);
     font-size: 11.5px;
     font-weight: 500;
-    color: var(--ink2);
+    color: var(--ink-2);
     max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -355,6 +379,7 @@ const CSS = `
     gap: 5px;
     font-size: 10px;
     color: var(--muted);
+    font-family: var(--sans);
   }
 
   .hdr-loc {
@@ -363,7 +388,7 @@ const CSS = `
     gap: 3px;
   }
 
-  /* ACTIONS */
+  /* ── ACTIONS ── */
   .hdr-actions {
     display: flex;
     align-items: center;
@@ -377,7 +402,7 @@ const CSS = `
     width: 34px;
     height: 34px;
     border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid var(--border-hard);
     background: transparent;
     color: var(--muted);
     cursor: pointer;
@@ -388,9 +413,9 @@ const CSS = `
   }
 
   .hdr-icon-btn:hover {
-    background: rgba(255,255,255,0.06);
-    color: #fff;
-    border-color: rgba(255,255,255,0.15);
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--accent-brd);
   }
 
   .hdr-notif-dot {
@@ -408,21 +433,24 @@ const CSS = `
     width: 34px;
     height: 34px;
     border-radius: 8px;
-    background: rgba(200,255,0,0.12);
-    border: 1px solid rgba(200,255,0,0.22);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-brd);
     color: var(--accent);
-    font-family: var(--font-display);
+    font-family: var(--mono);
     font-size: 10px;
-    font-weight: 800;
+    font-weight: 600;
     letter-spacing: 0.06em;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.15s;
+    transition: background 0.15s, box-shadow 0.15s;
   }
 
-  .hdr-avatar:hover { background: rgba(200,255,0,0.2); }
+  .hdr-avatar:hover {
+    background: var(--accent-mid);
+    box-shadow: 0 0 0 3px rgba(59,47,201,0.12);
+  }
 
   @media (max-width: 768px) {
     .hdr-root { padding: 0 14px 0 56px; }
@@ -437,7 +465,6 @@ const CSS = `
   }
 `
 
-// Build flat searchable list from all modules + tiles
 function buildSearchIndex() {
   const items = []
   for (const mod of NAV_MODULES) {
@@ -487,7 +514,6 @@ export default function Header() {
       ).slice(0, 12)
     : []
 
-  // Group results by module
   const grouped = results.reduce((acc, item) => {
     const key = item.moduleLabel
     if (!acc[key]) acc[key] = []
@@ -495,7 +521,6 @@ export default function Header() {
     return acc
   }, {})
 
-  // Keyboard shortcut: / or Ctrl+K
   useEffect(() => {
     const onKey = (e) => {
       if ((e.key === '/' || (e.ctrlKey && e.key === 'k')) && document.activeElement !== inputRef.current) {
@@ -511,7 +536,6 @@ export default function Header() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  // Click outside to close
   useEffect(() => {
     const onClickOutside = (e) => {
       if (wrapRef.current && !wrapRef.current.contains(e.target)) {
@@ -610,7 +634,6 @@ export default function Header() {
             />
             <span className="hdr-search-kbd">/</span>
 
-            {/* Dropdown */}
             {open && query.trim().length > 0 && (
               <div className="hdr-search-drop">
                 {results.length === 0 ? (
