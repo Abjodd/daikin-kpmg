@@ -8,32 +8,39 @@ const SUPPLIER = 'Kunstocom (India) Ltd'
 const LOCATION = 'Neemrana, Alwar'
 
 const CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap');
 
   .hdr-root {
-    --accent:       #3b2fc9;
-    --accent-2:     #5b4be8;
-    --accent-soft:  rgba(59,47,201,0.08);
-    --accent-mid:   rgba(59,47,201,0.18);
-    --accent-brd:   rgba(59,47,201,0.22);
-    --bg:           #ffffff;
-    --surface:      #f4f5fb;
-    --surface-2:    #edeef8;
-    --border:       rgba(59,47,201,0.10);
-    --border-hard:  rgba(59,47,201,0.18);
-    --ink:          #1a1740;
-    --ink-2:        #4a4870;
-    --muted:        #9896b8;
-    --mono: 'IBM Plex Mono', monospace;
-    --sans: 'IBM Plex Sans', sans-serif;
+    --accent:        #0b3d91;
+    --accent-2:      #1e5dd6;
+    --accent-deep:   #07296b;
+    --accent-soft:   rgba(11,61,145,0.06);
+    --accent-mid:    rgba(11,61,145,0.12);
+    --accent-brd:    rgba(11,61,145,0.20);
+
+    --bg:            #ffffff;
+    --surface:       #f4f6fa;
+    --surface-2:     #e9edf3;
+
+    --border:        rgba(15,23,42,0.08);
+    --border-hard:   rgba(15,23,42,0.14);
+
+    --ink:           #0f172a;
+    --ink-2:         #334155;
+    --muted:         #94a3b8;
+
+    --mono: 'Geist Mono', monospace;
+    --sans: 'Geist', -apple-system, sans-serif;
+    --serif: 'Instrument Serif', serif;
 
     position: sticky;
     top: 0;
-    z-index: 200;
+    z-index: 2000;
+    isolation: isolate;
     height: 56px;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
-    box-shadow: 0 1px 0 var(--border), 0 4px 16px rgba(59,47,201,0.06);
+    box-shadow: 0 1px 0 var(--border), 0 4px 16px rgba(11,61,145,0.05);
     display: flex;
     align-items: center;
     padding: 0 20px;
@@ -45,73 +52,35 @@ const CSS = `
   .hdr-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
     text-decoration: none;
     flex-shrink: 0;
-    padding: 4px 10px 4px 0;
+    padding: 4px 4px 4px 0;
+    transition: opacity 0.18s ease;
   }
 
-  .hdr-logo-mark {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: var(--accent-soft);
-    border: 1px solid var(--accent-brd);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    overflow: hidden;
-    transition: background 0.15s;
-  }
-
-  .hdr-logo:hover .hdr-logo-mark {
-    background: var(--accent-mid);
+  .hdr-logo:hover {
+    opacity: 0.8;
   }
 
   .hdr-logo-img {
-    width: 22px;
-    height: 22px;
+    width: 80px;
+    height: auto;
     object-fit: contain;
     display: block;
-    filter: drop-shadow(0 0 1px rgba(59,47,201,0.5));
   }
 
   .hdr-logo-fallback {
     font-family: var(--sans);
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--accent);
-    letter-spacing: 0.06em;
-  }
-
-  .hdr-logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1;
-    gap: 2px;
-  }
-
-  .hdr-logo-name {
-    font-family: var(--sans);
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 700;
     color: var(--accent);
-    letter-spacing: 0.08em;
-  }
-
-  .hdr-logo-sub {
-    font-size: 9.5px;
-    font-weight: 400;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-    font-family: var(--sans);
+    letter-spacing: 0.06em;
   }
 
   /* ── DIVIDER ── */
   .hdr-div {
     width: 1px;
-    height: 20px;
+    height: 22px;
     background: var(--border-hard);
     margin: 0 16px;
     flex-shrink: 0;
@@ -121,9 +90,9 @@ const CSS = `
   .hdr-nav {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     min-width: 0;
-    font-size: 12px;
+    font-size: 12.5px;
     color: var(--muted);
     flex-shrink: 0;
     font-family: var(--sans);
@@ -134,7 +103,8 @@ const CSS = `
     color: var(--ink-2);
     text-decoration: none;
     flex-shrink: 0;
-    transition: color 0.15s;
+    transition: color 0.15s ease;
+    letter-spacing: -0.005em;
   }
 
   .hdr-crumb-home:hover { color: var(--accent); }
@@ -143,25 +113,27 @@ const CSS = `
     color: var(--muted);
     font-size: 14px;
     flex-shrink: 0;
+    opacity: 0.6;
   }
 
   .hdr-crumb-module {
     color: var(--ink-2);
     flex-shrink: 0;
     font-weight: 400;
+    letter-spacing: -0.005em;
   }
 
   .hdr-crumb-tile {
-    font-weight: 600;
+    font-weight: 500;
     color: var(--accent);
     background: var(--accent-soft);
     border: 1px solid var(--accent-brd);
-    padding: 2px 8px;
-    border-radius: 4px;
+    padding: 3px 9px;
+    border-radius: 5px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
     font-family: var(--mono);
     font-size: 11px;
   }
@@ -175,17 +147,18 @@ const CSS = `
     padding: 0 16px;
     min-width: 0;
     position: relative;
+    z-index: 2100;
   }
 
   .hdr-search-box {
     position: relative;
     width: 100%;
-    max-width: 360px;
+    max-width: 380px;
   }
 
   .hdr-search-icon {
     position: absolute;
-    left: 10px;
+    left: 11px;
     top: 50%;
     transform: translateY(-50%);
     color: var(--muted);
@@ -196,74 +169,90 @@ const CSS = `
 
   .hdr-search-input {
     width: 100%;
-    height: 32px;
+    height: 34px;
     background: var(--surface);
     border: 1px solid var(--border-hard);
-    border-radius: 6px;
-    padding: 0 32px 0 32px;
+    border-radius: 100px;
+    padding: 0 36px 0 34px;
     font-family: var(--sans);
-    font-size: 12px;
+    font-size: 12.5px;
     color: var(--ink);
     outline: none;
-    transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
-    letter-spacing: 0.01em;
+    transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    letter-spacing: -0.005em;
     box-sizing: border-box;
   }
 
   .hdr-search-input::placeholder { color: var(--muted); }
 
   .hdr-search-input:focus {
-    border-color: var(--accent-2);
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(59,47,201,0.10);
+    border-color: var(--accent);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(11,61,145,0.10);
+  }
+
+  .hdr-search-input:focus + .hdr-search-kbd {
+    color: var(--accent);
+    border-color: var(--accent-brd);
+    background: rgba(11,61,145,0.06);
   }
 
   .hdr-search-kbd {
     position: absolute;
-    right: 8px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     font-family: var(--mono);
-    font-size: 8px;
-    font-weight: 600;
+    font-size: 9px;
+    font-weight: 500;
     color: var(--muted);
     background: var(--surface-2);
     border: 1px solid var(--border-hard);
-    border-radius: 3px;
-    padding: 1px 5px;
+    border-radius: 4px;
+    padding: 2px 6px;
     letter-spacing: 0.04em;
     pointer-events: none;
+    transition: all 0.18s ease;
   }
 
   /* Search dropdown */
   .hdr-search-drop {
     position: absolute;
-    top: calc(100% + 6px);
+    z-index: 2200;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 360px;
+    max-width: 380px;
     background: #ffffff;
     border: 1px solid var(--border-hard);
-    border-radius: 10px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 12px 36px rgba(59,47,201,0.14), 0 2px 8px rgba(59,47,201,0.08);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 16px 40px -8px rgba(11,61,145,0.18),
+      0 4px 12px rgba(11,61,145,0.08);
     z-index: 999;
-    max-height: 340px;
+    max-height: 360px;
     overflow-y: auto;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-hard) transparent;
   }
 
-  .hdr-search-drop::-webkit-scrollbar { display: none; }
+  .hdr-search-drop::-webkit-scrollbar { width: 4px; }
+  .hdr-search-drop::-webkit-scrollbar-thumb {
+    background: var(--border-hard);
+    border-radius: 4px;
+  }
 
   .hdr-search-group-label {
     font-family: var(--mono);
-    font-size: 7.5px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: var(--muted);
-    padding: 10px 14px 5px;
+    color: var(--accent);
+    padding: 12px 16px 6px;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
   }
@@ -271,10 +260,10 @@ const CSS = `
   .hdr-search-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 9px 14px;
+    gap: 11px;
+    padding: 10px 16px;
     cursor: pointer;
-    transition: background 0.12s;
+    transition: background 0.15s ease;
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -284,52 +273,69 @@ const CSS = `
   }
 
   .hdr-search-item-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
     background: var(--surface);
     border: 1px solid var(--border-hard);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: var(--accent-2);
+    color: var(--accent);
+    transition: all 0.15s ease;
+  }
+
+  .hdr-search-item:hover .hdr-search-item-icon,
+  .hdr-search-item.focused .hdr-search-item-icon {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
   }
 
   .hdr-search-item-text { flex: 1; min-width: 0; }
 
   .hdr-search-item-label {
-    font-size: 12px;
+    font-size: 12.5px;
     font-weight: 500;
     color: var(--ink);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-family: var(--sans);
+    letter-spacing: -0.005em;
   }
 
   .hdr-search-item-label mark {
     background: transparent;
     color: var(--accent);
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .hdr-search-item-module {
     font-size: 10px;
     color: var(--muted);
-    margin-top: 1px;
+    margin-top: 2px;
     font-family: var(--mono);
+    letter-spacing: 0.02em;
   }
 
   .hdr-search-arrow {
     color: var(--muted);
     flex-shrink: 0;
+    transition: transform 0.2s ease, color 0.15s ease;
+  }
+
+  .hdr-search-item:hover .hdr-search-arrow,
+  .hdr-search-item.focused .hdr-search-arrow {
+    color: var(--accent);
+    transform: translateX(2px);
   }
 
   .hdr-search-empty {
-    padding: 24px 14px;
+    padding: 28px 16px;
     text-align: center;
-    font-size: 12px;
+    font-size: 12.5px;
     color: var(--muted);
     font-family: var(--sans);
   }
@@ -339,7 +345,7 @@ const CSS = `
     display: none;
     flex-direction: column;
     align-items: flex-end;
-    gap: 2px;
+    gap: 3px;
     flex-shrink: 0;
   }
 
@@ -348,68 +354,70 @@ const CSS = `
   .hdr-company-row1 {
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 8px;
   }
 
   .hdr-badge {
     font-family: var(--mono);
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    padding: 2px 7px;
-    border-radius: 4px;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    padding: 3px 8px;
+    border-radius: 5px;
     background: var(--accent);
     color: #ffffff;
   }
 
   .hdr-company-name {
     font-family: var(--sans);
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--ink-2);
-    max-width: 200px;
+    max-width: 220px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    letter-spacing: -0.005em;
   }
 
   .hdr-company-row2 {
     display: flex;
     align-items: center;
-    gap: 5px;
-    font-size: 10px;
+    gap: 6px;
+    font-size: 10.5px;
     color: var(--muted);
     font-family: var(--sans);
+    letter-spacing: -0.005em;
   }
 
   .hdr-loc {
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 4px;
   }
 
   /* ── ACTIONS ── */
   .hdr-actions {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     margin-left: 8px;
     flex-shrink: 0;
   }
 
   .hdr-icon-btn {
     position: relative;
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
     border: 1px solid var(--border-hard);
     background: transparent;
-    color: var(--muted);
+    color: var(--ink-2);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
   }
 
   .hdr-icon-btn:hover {
@@ -422,40 +430,41 @@ const CSS = `
     position: absolute;
     top: 7px;
     right: 7px;
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: #ef4444;
-    border: 1.5px solid var(--bg);
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1px rgba(11,61,145,0.2);
   }
 
   .hdr-avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    background: var(--accent-soft);
-    border: 1px solid var(--accent-brd);
-    color: var(--accent);
-    font-family: var(--mono);
-    font-size: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    border: 1px solid var(--accent);
+    color: #ffffff;
+    font-family: var(--sans);
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.15s, box-shadow 0.15s;
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
   }
 
   .hdr-avatar:hover {
-    background: var(--accent-mid);
-    box-shadow: 0 0 0 3px rgba(59,47,201,0.12);
+    box-shadow: 0 0 0 4px rgba(11,61,145,0.15);
+    transform: translateY(-1px);
   }
 
   @media (max-width: 768px) {
-    .hdr-root { padding: 0 14px 0 56px; }
+    .hdr-root { padding: 0 14px 0 60px; }
     .hdr-div { margin: 0 10px; }
-    .hdr-logo-text { display: none; }
+    .hdr-logo-img { width: 100px; }
     .hdr-nav { display: none; }
     .hdr-search-wrap { padding: 0 8px 0 0; }
   }
@@ -580,21 +589,18 @@ export default function Header() {
 
         {/* Logo */}
         <Link to="/" className="hdr-logo">
-          <div className="hdr-logo-mark">
-            <img
-              src="/daikin.png"
-              alt="Logo"
-              className="hdr-logo-img"
-              onError={(e) => {
-                e.target.style.display = 'none'
-                e.target.parentNode.innerHTML = '<span class="hdr-logo-fallback">DAI</span>'
-              }}
-            />
-          </div>
-          <div className="hdr-logo-text">
-            <span className="hdr-logo-name">DAIKIN</span>
-            <span className="hdr-logo-sub">SAP Portal</span>
-          </div>
+          <img
+            src="/daikin.png"
+            alt="Daikin Logo"
+            className="hdr-logo-img"
+            onError={(e) => {
+              e.target.style.display = 'none'
+              const span = document.createElement('span')
+              span.className = 'hdr-logo-fallback'
+              span.textContent = 'DAIKIN'
+              e.target.parentNode.appendChild(span)
+            }}
+          />
         </Link>
 
         <div className="hdr-div" />

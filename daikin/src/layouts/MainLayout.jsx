@@ -57,34 +57,43 @@ function getIcon(modId = '') {
 }
 
 const CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --accent:        #4338ca;
-    --accent-hover:  #4f46e5;
-    --accent-soft:   rgba(67,56,202,0.08);
-    --accent-mid:    rgba(67,56,202,0.14);
-    --accent-brd:    rgba(67,56,202,0.22);
-    --bg:            #f5f6fa;
+    --accent:        #0b3d91;
+    --accent-light:  #1e5dd6;
+    --accent-deep:   #07296b;
+    --accent-soft:   rgba(11,61,145,0.06);
+    --accent-mid:    rgba(11,61,145,0.12);
+    --accent-brd:    rgba(11,61,145,0.22);
+
+    --bg:            #e9edf3;
+    --bg-2:          #dee3ec;
     --surface:       #ffffff;
-    --surface-2:     #f0f1f8;
-    --border:        rgba(67,56,202,0.09);
-    --border-hard:   rgba(67,56,202,0.16);
-    --ink:           #1e1b4b;
-    --ink-2:         #4338ca;
-    --muted:         #a5b4fc;
-    --sidebar-w:     252px;
-    --sb-bg:         #1e1b4b;
-    --sb-bg-2:       #272466;
-    --sb-scrollbar:  rgba(99,102,241,0.45);
-    --sb-scrollbar-track: rgba(255,255,255,0.05);
-    --mono: 'IBM Plex Mono', monospace;
-    --sans: 'IBM Plex Sans', sans-serif;
+    --surface-2:     #f1f4f9;
+
+    --border:        rgba(15,23,42,0.08);
+    --border-hard:   rgba(15,23,42,0.14);
+
+    --ink:           #0f172a;
+    --ink-2:         #334155;
+    --ink-3:         #64748b;
+    --muted:         #94a3b8;
+
+    --mono: 'Geist Mono', monospace;
+    --sans: 'Geist', -apple-system, sans-serif;
+    --serif: 'Instrument Serif', serif;
   }
 
   html, body, #root { height: 100%; overflow: hidden; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
 
   .ml-shell {
     display: flex;
@@ -92,292 +101,158 @@ const CSS = `
     height: 100dvh;
     background: var(--bg);
     font-family: var(--sans);
-    overflow: hidden;
-  }
-
-  .ml-top { flex-shrink: 0; z-index: 200; }
-  .ml-body { flex: 1; display: flex; min-height: 0; overflow: hidden; }
-
-  /* ════════ SIDEBAR ════════ */
-  .ml-sidebar {
-    width: var(--sidebar-w);
-    flex-shrink: 0;
-    background: var(--sb-bg);
-    display: flex;
-    flex-direction: column;
+    color: var(--ink);
     overflow: hidden;
     position: relative;
-    box-shadow: 1px 0 0 rgba(255,255,255,0.04), 4px 0 24px rgba(0,0,0,0.18);
   }
 
-  .ml-sb-dots {
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(rgba(165,180,252,0.06) 1px, transparent 1px);
-    background-size: 22px 22px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .ml-sb-blob1 {
-    position: absolute;
-    top: -80px; left: -80px;
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 65%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: blob-drift 10s ease-in-out infinite alternate;
-  }
-
-  .ml-sb-blob2 {
-    position: absolute;
-    bottom: -40px; right: -80px;
-    width: 220px; height: 220px;
-    background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 65%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: blob-drift 8s ease-in-out 2s infinite alternate-reverse;
-  }
-
-  @keyframes blob-drift {
-    from { transform: translate(0,0) scale(1); }
-    to   { transform: translate(14px, 20px) scale(1.06); }
-  }
-
-  .ml-sb-head {
-    position: relative;
-    z-index: 1;
-    padding: 24px 20px 18px;
-    border-bottom: 1px solid rgba(165,180,252,0.08);
+  .ml-top {
     flex-shrink: 0;
-  }
-
-  .ml-sb-eyebrow {
-    font-family: var(--mono);
-    font-size: 7.5px;
-    font-weight: 600;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: rgba(165,180,252,0.45);
-    margin-bottom: 10px;
-  }
-
-  .ml-sb-wordmark {
-    font-family: var(--sans);
-    font-size: 19px;
-    font-weight: 600;
-    color: #fff;
-    letter-spacing: -0.02em;
-    line-height: 1;
-    margin-bottom: 14px;
-  }
-
-  .ml-sb-wordmark em {
-    font-style: normal;
-    color: rgba(165,180,252,0.6);
-    font-weight: 300;
-  }
-
-  .ml-sb-chips {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .ml-sb-chip {
-    font-family: var(--mono);
-    font-size: 8px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 4px;
-  }
-
-  .ml-sb-chip-white {
-    background: rgba(99,102,241,0.25);
-    color: rgba(199,210,254,0.95);
-    border: 1px solid rgba(99,102,241,0.35);
-  }
-
-  .ml-sb-chip-outline {
-    background: transparent;
-    color: rgba(165,180,252,0.5);
-    border: 1px solid rgba(165,180,252,0.15);
-  }
-
-  /* ── Sidebar scrollbar — always visible, themed ── */
-  .ml-nav-scroll {
-    flex: 1;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding: 16px 12px 12px;
+    z-index: 200;
     position: relative;
-    z-index: 1;
-    /* Firefox */
-    scrollbar-width: thin;
-    scrollbar-color: var(--sb-scrollbar) var(--sb-scrollbar-track);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
   }
 
-  /* Webkit — custom track + thumb */
-  .ml-nav-scroll::-webkit-scrollbar {
-    width: 5px;
-  }
-  .ml-nav-scroll::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.04);
-    border-radius: 4px;
-    margin: 4px 0;
-  }
-  .ml-nav-scroll::-webkit-scrollbar-thumb {
-    background: rgba(99,102,241,0.55);
-    border-radius: 4px;
-  }
-  .ml-nav-scroll::-webkit-scrollbar-thumb:hover {
-    background: rgba(129,140,248,0.8);
-  }
+  .ml-body { flex: 1; display: flex; min-height: 0; overflow: hidden; position: relative; }
 
-  .ml-nav-group {
-    font-family: var(--mono);
-    font-size: 7px;
-    font-weight: 600;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: rgba(165,180,252,0.28);
-    padding: 6px 8px 10px;
-  }
-
-  .ml-nav-item {
+  /*
+    ════════ APPLE-STYLE PILL NAVBAR ════════
+    Fixed at the top, centered, frosted-glass with backdrop blur.
+    Replaces the old left sidebar entirely.
+  */
+  .ml-pillnav {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 9px 10px;
-    cursor: pointer;
-    border-radius: 8px;
-    font-size: 12.5px;
-    font-family: var(--sans);
-    color: rgba(199,210,254,0.55);
-    transition: color 0.15s, background 0.15s;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    margin-bottom: 2px;
+    gap: 4px;
+    padding: 6px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(24px) saturate(1.8);
+    -webkit-backdrop-filter: blur(24px) saturate(1.8);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.7) inset,
+      0 0 0 1px rgba(11,61,145,0.04),
+      0 8px 28px -8px rgba(11,61,145,0.18),
+      0 20px 40px -12px rgba(11,61,145,0.12);
+    max-width: calc(100vw - 32px);
+    animation: pill-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes pill-in {
+    from { opacity: 0; transform: translateX(-50%) translateY(-12px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  /* Single pill item — a module link */
+  .ml-pill-item {
     position: relative;
-  }
-
-  .ml-nav-item:hover {
-    color: rgba(255,255,255,0.88);
-    background: rgba(165,180,252,0.08);
-  }
-
-  .ml-nav-item.active {
-    background: rgba(99,102,241,0.22);
-    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 16px;
+    border-radius: 100px;
+    font-family: var(--sans);
+    font-size: 13.5px;
     font-weight: 500;
+    color: var(--ink-2);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: -0.005em;
+    flex-shrink: 0;
   }
 
-  .ml-nav-item.active::before {
-    content: '';
-    position: absolute;
-    left: -12px;
-    top: 9px;
-    bottom: 9px;
-    width: 3px;
-    background: #a5b4fc;
-    border-radius: 0 3px 3px 0;
+  .ml-pill-item:hover {
+    color: var(--ink);
+    background: rgba(11, 61, 145, 0.06);
   }
 
-  .ml-nav-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 7px;
+  .ml-pill-item.active {
+    background: var(--accent);
+    color: #ffffff;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.18) inset,
+      0 4px 12px -2px rgba(11,61,145,0.4);
+  }
+
+  .ml-pill-item.active:hover {
+    background: var(--accent-deep);
+    color: #ffffff;
+  }
+
+  /* Icon inside pill item */
+  .ml-pill-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    background: rgba(165,180,252,0.07);
-    color: rgba(165,180,252,0.5);
-    transition: background 0.15s, color 0.15s, transform 0.2s;
+    width: 16px;
+    height: 16px;
+    color: currentColor;
+    opacity: 0.7;
+    transition: opacity 0.25s ease;
   }
 
-  .ml-nav-item:hover .ml-nav-icon {
-    background: rgba(165,180,252,0.13);
-    color: rgba(199,210,254,0.9);
-    transform: scale(1.07);
+  .ml-pill-item.active .ml-pill-icon,
+  .ml-pill-item:hover .ml-pill-icon {
+    opacity: 1;
   }
 
-  .ml-nav-item.active .ml-nav-icon {
-    background: rgba(99,102,241,0.3);
-    color: #c7d2fe;
-  }
-
-  .ml-nav-label { flex: 1; }
-
-  .ml-nav-badge {
+  /* Count badge inside pill */
+  .ml-pill-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 100px;
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 500;
-    letter-spacing: 0.06em;
-    padding: 2px 7px;
-    border-radius: 4px;
-    background: rgba(165,180,252,0.08);
-    color: rgba(165,180,252,0.4);
-    flex-shrink: 0;
-    border: 1px solid rgba(165,180,252,0.1);
+    background: rgba(11, 61, 145, 0.1);
+    color: var(--accent);
+    margin-left: 2px;
+    transition: all 0.25s ease;
   }
 
-  .ml-nav-item.active .ml-nav-badge {
-    background: rgba(99,102,241,0.25);
-    color: rgba(199,210,254,0.8);
-    border-color: rgba(99,102,241,0.3);
+  .ml-pill-item.active .ml-pill-badge {
+    background: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
   }
 
-  .ml-sb-footer {
+  /* Pill nav divider — separates groups */
+  .ml-pill-divider {
+    width: 1px;
+    height: 22px;
+    background: rgba(11, 61, 145, 0.12);
+    margin: 0 4px;
     flex-shrink: 0;
-    position: relative;
-    z-index: 1;
-    border-top: 1px solid rgba(165,180,252,0.08);
-    padding: 14px 20px;
+  }
+
+  /* Scrollable container for overflow on smaller screens */
+  .ml-pill-scroll {
     display: flex;
     align-items: center;
-    gap: 10px;
-    background: rgba(0,0,0,0.12);
+    gap: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    max-width: 100%;
   }
-
-  .ml-sb-pulse {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #6ee7b7;
-    flex-shrink: 0;
-    box-shadow: 0 0 0 0 rgba(110,231,183,0.4);
-    animation: pulse-ring 2.4s ease-in-out infinite;
-  }
-
-  @keyframes pulse-ring {
-    0%   { box-shadow: 0 0 0 0 rgba(110,231,183,0.4); }
-    60%  { box-shadow: 0 0 0 6px rgba(110,231,183,0); }
-    100% { box-shadow: 0 0 0 0 rgba(110,231,183,0); }
-  }
-
-  .ml-sb-footer-info { flex: 1; }
-
-  .ml-sb-footer-status {
-    font-family: var(--mono);
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(199,210,254,0.45);
-  }
-
-  .ml-sb-footer-tag {
-    font-family: var(--mono);
-    font-size: 8px;
-    color: rgba(165,180,252,0.22);
-    letter-spacing: 0.06em;
-    margin-top: 2px;
-  }
+  .ml-pill-scroll::-webkit-scrollbar { display: none; }
 
   /* ════════ MAIN CONTENT SCROLL ════════ */
   .ml-scroll {
@@ -387,71 +262,340 @@ const CSS = `
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: var(--border-hard) transparent;
+    background: var(--bg);
   }
 
-  .ml-scroll::-webkit-scrollbar { width: 4px; }
+  .ml-scroll::-webkit-scrollbar { width: 6px; }
   .ml-scroll::-webkit-scrollbar-track { background: transparent; }
   .ml-scroll::-webkit-scrollbar-thumb {
     background: var(--border-hard);
     border-radius: 4px;
   }
-
-  .ml-main {
-    max-width: 1060px;
-    margin: 0 auto;
-    padding: 40px 32px 100px;
-    display: flex;
-    flex-direction: column;
-    gap: 56px;
+  .ml-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-brd);
   }
 
-  .ml-section { display: flex; flex-direction: column; gap: 18px; }
+  /*
+    ── FULL-BLEED MAIN ──
+    Truly edge-to-edge. Sidebar is gone, content spans the entire viewport.
+    Top padding so the first hero starts below the floating pill navbar.
+  */
+  .ml-main {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
 
+  /* First section gets extra top padding so it doesn't hide behind the pill */
+  .ml-section:first-of-type .ml-section-head {
+    padding-top: 168px; /* room for pill nav */
+  }
+
+  /*
+    ── SECTION (each module) ──
+    Full-bleed strips, flowing one into the next.
+  */
+  .ml-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: var(--surface);
+    animation: section-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes section-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Hero header — full-bleed cinematic banner with bg image */
   .ml-section-head {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    min-height: 380px;
+    padding: 56px 64px 48px;
+    overflow: hidden;
+    isolation: isolate;
+
+    background:
+      linear-gradient(135deg, var(--accent-deep) 0%, var(--accent) 60%, var(--accent-light) 130%);
+  }
+
+  /* Per-section background images cycled via :nth-of-type */
+  .ml-section:nth-of-type(8n+1) .ml-section-head {
+    background-image:
+      linear-gradient(120deg, rgba(7,41,107,0.92) 0%, rgba(11,61,145,0.75) 55%, rgba(30,93,214,0.45) 100%),
+      url('https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+  .ml-section:nth-of-type(8n+2) .ml-section-head {
+    background-image:
+      linear-gradient(120deg, rgba(7,41,107,0.92) 0%, rgba(11,61,145,0.75) 55%, rgba(30,93,214,0.45) 100%),
+      url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+  .ml-section:nth-of-type(8n+3) .ml-section-head {
+    background-image:
+      linear-gradient(120deg, rgba(7,41,107,0.92) 0%, rgba(11,61,145,0.75) 55%, rgba(30,93,214,0.45) 100%),
+      url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+  .ml-section:nth-of-type(8n+4) .ml-section-head {
+    background-image:
+      linear-gradient(120deg, rgba(7,41,107,0.92) 0%, rgba(11,61,145,0.75) 55%, rgba(30,93,214,0.45) 100%),
+      url('https://images.unsplash.com/photo-1542838132-92c53300491e?w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+  .ml-section:nth-of-type(8n+5) .ml-section-head {
+    background-image:
+      linear-gradient(120deg, rgba(7,41,107,0.92) 0%, rgba(11,61,145,0.75) 55%, rgba(30,93,214,0.45) 100%),
+      url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+  .ml-section:nth-of-type(8n+6) .ml-section-head {
+    background-image:
+      linear-gradient(120deg, rgba(7,41,107,0.92) 0%, rgba(11,61,145,0.75) 55%, rgba(30,93,214,0.45) 100%),
+      url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+  .ml-section:nth-of-type(8n+7) .ml-section-head {
+    background-image:
+      linear-gradient(120deg, rgba(7,41,107,0.92) 0%, rgba(11,61,145,0.75) 55%, rgba(30,93,214,0.45) 100%),
+      url('https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+  .ml-section:nth-of-type(8n+8) .ml-section-head {
+    background-image:
+      linear-gradient(120deg, rgba(7,41,107,0.92) 0%, rgba(11,61,145,0.75) 55%, rgba(30,93,214,0.45) 100%),
+      url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* grid texture overlay */
+  .ml-section-head::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 0;
+  }
+
+  /* soft glow top-right */
+  .ml-section-head::after {
+    content: '';
+    position: absolute;
+    top: -120px; right: -80px;
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, rgba(255,255,255,0.14) 0%, transparent 60%);
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(8px);
+    z-index: 0;
+  }
+
+  /* Big italic serif module name */
+  .ml-section-name {
+    position: relative;
+    z-index: 2;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(54px, 7vw, 96px);
+    letter-spacing: -0.025em;
+    color: #ffffff;
+    line-height: 0.95;
+    text-transform: none;
+    white-space: normal;
+    text-shadow: 0 2px 24px rgba(7,41,107,0.4);
+    display: block;
+    margin-top: 0;
+  }
+
+  /* CORPORATE MODULE kicker */
+  .ml-section-name::before {
+    content: 'CORPORATE MODULE';
+    display: block;
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+
+  .ml-section-rule { display: none; }
+
+  /* descriptive prose under the title */
+  .ml-section-tag {
+    position: relative;
+    z-index: 2;
+    margin-top: 20px;
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: -0.005em;
+    line-height: 1.55;
+    max-width: 640px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    text-transform: none;
+    display: block;
+  }
+
+  .ml-section-tag::before {
+    content: 'Centralized workspace for managing this module · ';
+    color: rgba(255,255,255,0.55);
+  }
+
+  .ml-section-tag::after {
+    content: ' tiles available below.';
+    color: rgba(255,255,255,0.55);
+  }
+
+  /*
+    TileGrid sits as the second child of .ml-section.
+    Full-width white strip below the hero, generous padding.
+  */
+  .ml-section > :not(.ml-section-head) {
+    background: var(--surface);
+    padding: 56px 64px 64px;
+  }
+
+  /* ════════ FOOTER ════════ */
+  .ml-footer {
+    background: var(--accent-deep);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 32px 64px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: var(--sans);
+  }
+
+  .ml-footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .ml-footer-left {
     display: flex;
     align-items: center;
     gap: 14px;
+    font-size: 13px;
+    letter-spacing: -0.005em;
   }
 
-  .ml-section-name {
+  .ml-footer-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: var(--mono);
     font-size: 10px;
     font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    white-space: nowrap;
-    opacity: 0.7;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
   }
 
-  .ml-section-rule {
-    flex: 1;
-    height: 1px;
-    background: var(--border-hard);
+  .ml-footer-text {
+    color: rgba(255, 255, 255, 0.75);
   }
 
-  .ml-section-tag {
+  .ml-footer-text em {
+    font-family: serif;
+    font-style: Bold;
+    color: #ffffff;
+    font-weight: 400;
+  }
+
+  .ml-footer-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
     font-family: var(--mono);
-    font-size: 9px;
-    font-weight: 500;
-    background: var(--surface);
-    border: 1px solid var(--border-hard);
-    padding: 2px 8px;
-    border-radius: 4px;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    opacity: 0.7;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.5);
   }
 
-  /* ════════ MOBILE ════════ */
+  .ml-footer-right a {
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    transition: color 0.18s ease;
+  }
+
+  .ml-footer-right a:hover {
+    color: #ffffff;
+  }
+
+  .ml-footer-sep {
+    color: rgba(255, 255, 255, 0.25);
+  }
+
+  /* ════════ BOTTOM MOBILE NAV (hidden on desktop) ════════ */
+  .ml-mobile-nav { display: none; }
+
+  /* ════════ MOBILE HAMBURGER + DRAWER (hidden on desktop) ════════ */
   .ml-mobile-toggle { display: none; }
   .ml-sidebar-overlay { display: none; }
   .ml-sidebar-drawer { display: none; }
-  .ml-mobile-nav { display: none; }
 
+  @media (max-width: 1100px) {
+    .ml-pillnav {
+      top: 16px;
+      gap: 2px;
+      padding: 5px;
+    }
+    .ml-pill-item {
+      padding: 8px 13px;
+      font-size: 12.5px;
+    }
+    .ml-pill-icon { width: 14px; height: 14px; }
+    .ml-section:first-of-type .ml-section-head {
+      padding-top: 110px;
+    }
+  }
+
+  /* ════════ MOBILE LAYOUT ════════ */
   @media (max-width: 768px) {
-    .ml-sidebar { display: none; }
+    /* Hide the top pill on mobile — bottom nav takes over for mobile UX */
+    .ml-pillnav { display: none; }
 
+    /* ── Floating hamburger toggle button ── */
     .ml-mobile-toggle {
       display: flex;
       align-items: center;
@@ -459,31 +603,40 @@ const CSS = `
       position: fixed;
       top: 10px;
       left: 12px;
-      z-index: 500;
+      z-index: 310;
       width: 36px;
       height: 36px;
-      border-radius: 8px;
-      background: var(--sb-bg);
-      border: none;
-      color: #c7d2fe;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-brd);
+      color: var(--accent);
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: background 0.15s;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+      transition: all 0.2s ease;
     }
 
-    .ml-mobile-toggle:active { background: var(--sb-bg-2); }
+    .ml-mobile-toggle:hover {
+      background: var(--accent-mid);
+      border-color: var(--accent);
+    }
 
+    .ml-mobile-toggle:active {
+      transform: scale(0.94);
+      background: var(--accent-mid);
+    }
+
+    /* ── Backdrop overlay behind the drawer ── */
     .ml-sidebar-overlay {
       display: block;
       position: fixed;
       inset: 0;
       z-index: 399;
-      background: rgba(15,12,40,0.5);
-      backdrop-filter: blur(3px);
+      background: rgba(7, 41, 107, 0.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.3s ease;
     }
 
     .ml-sidebar-overlay.open {
@@ -491,59 +644,320 @@ const CSS = `
       pointer-events: all;
     }
 
+    /* ── Slide-in drawer (navy sidebar) ── */
     .ml-sidebar-drawer {
       display: flex;
       flex-direction: column;
       position: fixed;
-      top: 0; left: 0; bottom: 0;
-      width: var(--sidebar-w);
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 286px;
+      max-width: 86vw;
       z-index: 400;
-      background: var(--sb-bg);
+      background: var(--accent-deep);
       overflow: hidden;
       transform: translateX(-100%);
-      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 4px 0 32px rgba(0,0,0,0.3);
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 6px 0 40px rgba(7, 41, 107, 0.4);
     }
 
-    .ml-sidebar-drawer.open { transform: translateX(0); }
+    .ml-sidebar-drawer.open {
+      transform: translateX(0);
+    }
 
+    /* Drawer header */
+    .ml-drawer-head {
+      position: relative;
+      padding: 24px 22px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+    }
+
+    .ml-drawer-eyebrow {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ml-drawer-eyebrow::before {
+      content: '';
+      width: 14px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .ml-drawer-title {
+      font-family: var(--sans);
+      font-size: 24px;
+      font-weight: 500;
+      color: #ffffff;
+      letter-spacing: -0.025em;
+      line-height: 1;
+    }
+
+    .ml-drawer-title em {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* Close button (top right inside drawer) */
     .ml-drawer-close {
       position: absolute;
-      top: 14px; right: 14px;
-      z-index: 10;
-      width: 30px; height: 30px;
-      border-radius: 7px;
-      background: rgba(165,180,252,0.1);
-      border: 1px solid rgba(165,180,252,0.15);
-      color: rgba(199,210,254,0.65);
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.75);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: background 0.15s, color 0.15s;
+      transition: all 0.2s ease;
     }
 
     .ml-drawer-close:active {
-      background: rgba(165,180,252,0.2);
+      background: rgba(255, 255, 255, 0.18);
       color: #ffffff;
     }
 
-    .ml-main { padding: 20px 14px 80px; gap: 36px; }
-    .ml-section-name { font-size: 9.5px; }
+    /* Drawer body — scrollable list of modules */
+    .ml-drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 16px 12px 16px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+    }
 
+    .ml-drawer-body::-webkit-scrollbar { width: 4px; }
+    .ml-drawer-body::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 4px;
+    }
+
+    .ml-drawer-group {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+      padding: 6px 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ml-drawer-group::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .ml-drawer-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 12px;
+      cursor: pointer;
+      border-radius: 12px;
+      font-family: var(--sans);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.72);
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      transition: background 0.18s ease, color 0.18s ease;
+      -webkit-tap-highlight-color: transparent;
+      margin-bottom: 4px;
+      position: relative;
+    }
+
+    .ml-drawer-item:active {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .ml-drawer-item.active {
+      background: rgba(255, 255, 255, 0.14);
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .ml-drawer-item.active::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 11px;
+      bottom: 11px;
+      width: 3px;
+      background: #ffffff;
+      border-radius: 0 3px 3px 0;
+    }
+
+    .ml-drawer-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.18s ease;
+    }
+
+    .ml-drawer-item.active .ml-drawer-icon {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .ml-drawer-label {
+      flex: 1;
+      letter-spacing: -0.005em;
+    }
+
+    .ml-drawer-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.5);
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .ml-drawer-item.active .ml-drawer-badge {
+      background: rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Drawer footer */
+    .ml-drawer-footer {
+      flex-shrink: 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .ml-drawer-pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5);
+      animation: pulse-ring 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
+      60%  { box-shadow: 0 0 0 7px rgba(74, 222, 128, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+    }
+
+    .ml-drawer-status {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .ml-drawer-tag {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 0.1em;
+      margin-top: 3px;
+    }
+
+    /* Section hero has normal top padding — Header is sticky and pushes content naturally */
+    .ml-section:first-of-type .ml-section-head {
+      padding-top: 36px;
+    }
+
+    .ml-section-head {
+      min-height: 280px;
+      padding: 36px 24px 32px;
+    }
+    .ml-section-name { font-size: clamp(40px, 11vw, 60px); }
+    .ml-section-name::before {
+      font-size: 9.5px;
+      letter-spacing: 0.24em;
+      margin-bottom: 12px;
+    }
+    .ml-section-tag {
+      margin-top: 14px;
+      font-size: 13.5px;
+    }
+    .ml-section > :not(.ml-section-head) {
+      padding: 32px 20px 40px;
+    }
+
+    /* Footer on mobile */
+    .ml-footer {
+      padding: 24px 20px 28px;
+      margin-bottom: 64px; /* clear bottom nav */
+    }
+    .ml-footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .ml-footer-left { font-size: 12.5px; }
+    .ml-footer-right {
+      gap: 14px;
+      font-size: 10.5px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Fixed bottom mobile nav (tab bar) ── */
     .ml-mobile-nav {
       display: flex;
-      flex-shrink: 0;
-      background: var(--surface);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 300;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(24px) saturate(1.8);
+      -webkit-backdrop-filter: blur(24px) saturate(1.8);
       border-top: 1px solid var(--border-hard);
-      box-shadow: 0 -2px 12px rgba(67,56,202,0.08);
+      box-shadow: 0 -4px 24px -4px rgba(11,61,145,0.08);
       overflow-x: auto;
+      overflow-y: hidden;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
-      z-index: 100;
-      padding: 0 6px;
-      height: 58px;
+      padding: 0 8px;
+      height: 64px;
       align-items: center;
       gap: 2px;
     }
@@ -556,29 +970,33 @@ const CSS = `
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
-      height: 48px;
+      gap: 4px;
+      height: 54px;
+      min-width: 64px;
       padding: 0 12px;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
       border: none;
       background: transparent;
       -webkit-tap-highlight-color: transparent;
-      transition: background 0.15s;
+      transition: background 0.18s ease;
       position: relative;
+      font-family: var(--sans);
     }
 
-    .ml-mobile-tab:active { background: var(--accent-soft); }
+    .ml-mobile-tab:active {
+      background: var(--accent-soft);
+    }
 
     .ml-mobile-tab-icon {
       display: flex;
       color: var(--muted);
-      transition: color 0.15s, transform 0.2s;
+      transition: color 0.2s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .ml-mobile-tab.active .ml-mobile-tab-icon {
       color: var(--accent);
-      transform: scale(1.18);
+      transform: scale(1.15);
     }
 
     .ml-mobile-tab-label {
@@ -587,110 +1005,59 @@ const CSS = `
       font-weight: 500;
       color: var(--muted);
       white-space: nowrap;
-      letter-spacing: 0.05em;
-      transition: color 0.15s;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
     }
 
-    .ml-mobile-tab.active .ml-mobile-tab-label { color: var(--accent); }
+    .ml-mobile-tab.active .ml-mobile-tab-label {
+      color: var(--accent);
+      font-weight: 600;
+    }
 
     .ml-mobile-tab.active::after {
       content: '';
       position: absolute;
-      top: 3px;
+      top: 4px;
       left: 50%;
       transform: translateX(-50%);
-      width: 18px;
-      height: 2px;
+      width: 22px;
+      height: 3px;
       background: var(--accent);
-      border-radius: 0 0 3px 3px;
+      border-radius: 0 0 4px 4px;
+      box-shadow: 0 1px 4px rgba(11,61,145,0.3);
     }
   }
 
-  /* tablet — narrower sidebar */
-  @media (min-width: 769px) and (max-width: 1024px) {
-    :root { --sidebar-w: 210px; }
-    .ml-main { padding: 28px 20px 80px; gap: 44px; }
-    .ml-sb-head { padding: 18px 16px 14px; }
-    .ml-sb-wordmark { font-size: 17px; }
-  }
-
   @media (max-width: 480px) {
-    .ml-mobile-tab { padding: 0 9px; }
-    .ml-mobile-tab-label { font-size: 8.5px; }
-    .ml-main { padding: 16px 10px 80px; gap: 30px; }
+    .ml-section-head { padding: 30px 18px 28px; min-height: 240px; }
+    .ml-section > :not(.ml-section-head) { padding: 28px 16px 36px; }
+    .ml-mobile-tab { padding: 0 10px; min-width: 58px; }
+    .ml-mobile-tab-label { font-size: 8.5px; letter-spacing: 0.05em; }
   }
 `
-
-function SidebarInner({ activeModule, onSelect, onClose }) {
-  return (
-    <>
-      <div className="ml-sb-dots" />
-      <div className="ml-sb-blob1" />
-      <div className="ml-sb-blob2" />
-
-      {onClose && (
-        <button className="ml-drawer-close" onClick={onClose} aria-label="Close menu">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
-      )}
-
-      <div className="ml-sb-head">
-        <div className="ml-sb-eyebrow">Daikin SAP Portal</div>
-        <div className="ml-sb-wordmark">Mod<em>ules</em></div>
-        <div className="ml-sb-chips">
-          <span className="ml-sb-chip ml-sb-chip-white">● Live</span>
-          <span className="ml-sb-chip ml-sb-chip-outline">DSAL</span>
-        </div>
-      </div>
-
-      <div className="ml-nav-scroll">
-        <div className="ml-nav-group">All Modules</div>
-        {NAV_MODULES.map((mod) => (
-          <div
-            key={mod.id}
-            className={`ml-nav-item${activeModule === mod.id ? ' active' : ''}`}
-            onClick={() => onSelect(mod.id)}
-          >
-            <div className="ml-nav-icon">{getIcon(mod.id)}</div>
-            <span className="ml-nav-label">{mod.label}</span>
-            {mod.tiles?.length > 0 && (
-              <span className="ml-nav-badge">{mod.tiles.length}</span>
-            )}
-          </div>
-        ))}
-      </div>
-
-      <div className="ml-sb-footer">
-        <div className="ml-sb-pulse" />
-        <div className="ml-sb-footer-info">
-          <div className="ml-sb-footer-status">System Online</div>
-          <div className="ml-sb-footer-tag">Kunstocom · v2.0</div>
-        </div>
-      </div>
-    </>
-  )
-}
 
 export default function MainLayout() {
   const [activeModule, setActiveModule] = useState(NAV_MODULES[0]?.id)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const sectionRefs = useRef({})
+  const pillItemRefs = useRef({})
+  const pillScrollRef = useRef(null)
   const scrollAreaRef = useRef(null)
   const isScrollingTo = useRef(false)
   const scrollTimer = useRef(null)
+
+  // Lock body scroll & close on resize-to-desktop
+  useEffect(() => {
+    document.body.style.overflow = drawerOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [drawerOpen])
 
   useEffect(() => {
     const onResize = () => { if (window.innerWidth > 768) setDrawerOpen(false) }
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])
-
-  useEffect(() => {
-    document.body.style.overflow = drawerOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [drawerOpen])
 
   const getTopHeight = () => {
     const top = document.querySelector('.ml-top')
@@ -720,7 +1087,7 @@ export default function MainLayout() {
         })
         if (topmost) setActiveModule(topmost)
       },
-      { root: scrollArea, rootMargin: '-60px 0px -25% 0px', threshold: 0 }
+      { root: scrollArea, rootMargin: '-160px 0px -25% 0px', threshold: 0 }
     )
 
     NAV_MODULES.forEach((mod) => {
@@ -731,6 +1098,19 @@ export default function MainLayout() {
     return () => obs.disconnect()
   }, [])
 
+  // Keep the active pill item scrolled into view on mobile/small screens
+  useEffect(() => {
+    const pillScroll = pillScrollRef.current
+    const activeEl = pillItemRefs.current[activeModule]
+    if (!pillScroll || !activeEl) return
+    const containerRect = pillScroll.getBoundingClientRect()
+    const itemRect = activeEl.getBoundingClientRect()
+    if (itemRect.left < containerRect.left || itemRect.right > containerRect.right) {
+      const offset = activeEl.offsetLeft - (pillScroll.clientWidth / 2) + (activeEl.clientWidth / 2)
+      pillScroll.scrollTo({ left: offset, behavior: 'smooth' })
+    }
+  }, [activeModule])
+
   const handleSelect = useCallback((id) => {
     const el = sectionRefs.current[id]
     const scrollArea = scrollAreaRef.current
@@ -739,7 +1119,8 @@ export default function MainLayout() {
     setDrawerOpen(false)
     isScrollingTo.current = true
     if (scrollTimer.current) clearTimeout(scrollTimer.current)
-    const offset = getTopHeight() + 20
+    // Offset accounts for header + pill nav
+    const offset = getTopHeight() + 100
     const top =
       el.getBoundingClientRect().top -
       scrollArea.getBoundingClientRect().top +
@@ -757,36 +1138,93 @@ export default function MainLayout() {
           <Header />
         </div>
 
+        {/* ════════ FIXED PILL NAVBAR ════════ */}
+        <nav className="ml-pillnav" aria-label="Module navigation">
+          <div className="ml-pill-scroll" ref={pillScrollRef}>
+            {NAV_MODULES.map((mod) => (
+              <button
+                key={mod.id}
+                ref={(el) => (pillItemRefs.current[mod.id] = el)}
+                type="button"
+                className={`ml-pill-item${activeModule === mod.id ? ' active' : ''}`}
+                onClick={() => handleSelect(mod.id)}
+              >
+                <span className="ml-pill-icon">{getIcon(mod.id)}</span>
+                <span>{mod.label}</span>
+                {mod.tiles?.length > 0 && (
+                  <span className="ml-pill-badge">{mod.tiles.length}</span>
+                )}
+              </button>
+            ))}
+          </div>
+        </nav>
+
+        {/* ════════ MOBILE HAMBURGER TOGGLE ════════ */}
         <button
+          type="button"
           className="ml-mobile-toggle"
           onClick={() => setDrawerOpen(true)}
           aria-label="Open menu"
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="3" y1="6" x2="21" y2="6"/>
             <line x1="3" y1="12" x2="21" y2="12"/>
             <line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
         </button>
 
+        {/* ════════ DRAWER OVERLAY ════════ */}
         <div
           className={`ml-sidebar-overlay${drawerOpen ? ' open' : ''}`}
           onClick={() => setDrawerOpen(false)}
         />
 
-        <aside className={`ml-sidebar-drawer${drawerOpen ? ' open' : ''}`}>
-          <SidebarInner
-            activeModule={activeModule}
-            onSelect={handleSelect}
-            onClose={() => setDrawerOpen(false)}
-          />
+        {/* ════════ SLIDE-IN DRAWER ════════ */}
+        <aside className={`ml-sidebar-drawer${drawerOpen ? ' open' : ''}`} aria-label="Mobile menu">
+          <div className="ml-drawer-head">
+            <div className="ml-drawer-eyebrow">FIEM SAP Portal</div>
+            <div className="ml-drawer-title">Mod<em>ules</em></div>
+            <button
+              type="button"
+              className="ml-drawer-close"
+              onClick={() => setDrawerOpen(false)}
+              aria-label="Close menu"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+
+          <div className="ml-drawer-body">
+            <div className="ml-drawer-group">All Modules</div>
+            {NAV_MODULES.map((mod) => (
+              <button
+                key={mod.id}
+                type="button"
+                className={`ml-drawer-item${activeModule === mod.id ? ' active' : ''}`}
+                onClick={() => handleSelect(mod.id)}
+              >
+                <div className="ml-drawer-icon">{getIcon(mod.id)}</div>
+                <span className="ml-drawer-label">{mod.label}</span>
+                {mod.tiles?.length > 0 && (
+                  <span className="ml-drawer-badge">{mod.tiles.length}</span>
+                )}
+              </button>
+            ))}
+          </div>
+
+          <div className="ml-drawer-footer">
+            <div className="ml-drawer-pulse" />
+            <div>
+              <div className="ml-drawer-status">System Online</div>
+              <div className="ml-drawer-tag">Kunstocom · v2.0</div>
+            </div>
+          </div>
         </aside>
 
         <div className="ml-body">
-          <aside className="ml-sidebar">
-            <SidebarInner activeModule={activeModule} onSelect={handleSelect} />
-          </aside>
-
           <div className="ml-scroll" ref={scrollAreaRef}>
             <main className="ml-main">
               {NAV_MODULES.map((mod) => (
@@ -807,13 +1245,28 @@ export default function MainLayout() {
                 </section>
               ))}
             </main>
+
+            {/* ════════ FOOTER ════════ */}
+            <footer className="ml-footer">
+              <div className="ml-footer-inner">
+                <div className="ml-footer-left">
+                  <div className="ml-footer-mark">D</div>
+                  <span className="ml-footer-text">
+                    © {new Date().getFullYear()} <em><b>FIEM</b></em> · SAP Portal · Internal use only
+                  </span>
+                </div>
+                
+              </div>
+            </footer>
           </div>
         </div>
 
-        <nav className="ml-mobile-nav">
+        {/* ════════ BOTTOM MOBILE NAV (mobile only) ════════ */}
+        <nav className="ml-mobile-nav" aria-label="Module navigation (mobile)">
           {NAV_MODULES.map((mod) => (
             <button
               key={mod.id}
+              type="button"
               className={`ml-mobile-tab${activeModule === mod.id ? ' active' : ''}`}
               onClick={() => handleSelect(mod.id)}
             >
